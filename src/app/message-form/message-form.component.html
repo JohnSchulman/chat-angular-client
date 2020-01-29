@@ -1,0 +1,17 @@
+<div class="col-12 p-0">
+  <form #f="ngForm"
+        [method]="method" [action]="action"
+        (ngSubmit)="submitForm($event, f)">
+    <div class="form-group">
+      <label for="message">Message ici...</label>
+      <textarea class="form-control"
+                id="message" name="message"
+                ngModel #message="ngModel" required></textarea>
+    </div>
+    <div class="row">
+      <div class="col-1 offset-11">
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+      </div>
+    </div>
+  </form>
+</div>

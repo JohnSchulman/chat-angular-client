@@ -1,0 +1,20 @@
+<div class="container mt-3">
+  <div class="row" *ngFor="let message of messages">
+    <app-right-message [avatar]="message.avatar"
+                       [userName]="message.userName"
+                       [firstName]="message.firstName"
+                       [lastName]="message.lastName"
+                       [content]="message.content"
+                       [date]="message.date" ></app-right-message>
+
+    <app-left-message [avatar]="message.avatar"
+                      [userName]="message.userName"
+                      [firstName]="message.firstName"
+                      [lastName]="message.lastName"
+                      [content]="message.content"
+                      [date]="message.date" ></app-left-message>
+  </div>
+  <div class="row">
+    <app-message-form class="col-12 p-0"></app-message-form>
+  </div>
+</div>
