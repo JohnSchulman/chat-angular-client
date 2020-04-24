@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SmartComponent } from './smart/smart.component';
 import { AvatarComponent } from './avatar/avatar.component';
-import { RightMessageComponent } from './right-message/right-message.component';
-import { LeftMessageComponent } from './left-message/left-message.component';
 import { MessageFormComponent } from './message-form/message-form.component';
 import { BackToBrPipe } from './back-to-br.pipe';
 import { DateToStrPipe } from './date-to-str.pipe';
@@ -15,27 +13,32 @@ import { SendPipe } from './send.pipe';
 import { ReceivePipe } from './receive.pipe';
 import {FormsModule} from '@angular/forms';
 import {ChatService} from './chat.service';
+import {PseudoGeneratorService} from './pseudo-generator.service';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SmartComponent,
     AvatarComponent,
-    RightMessageComponent,
-    LeftMessageComponent,
+    MessageComponent,
     MessageFormComponent,
     BackToBrPipe,
     DateToStrPipe,
     ToBoldPipe,
     SendPipe,
-    ReceivePipe
+    ReceivePipe,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ChatService],
+  providers: [
+    ChatService,
+    PseudoGeneratorService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

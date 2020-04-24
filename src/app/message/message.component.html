@@ -1,0 +1,20 @@
+<div class="col-4 {{ side === 'left' ? '' : 'offset-8' }} bg-light rounded-{{ side === 'left' ? 'right' : 'left' }}">
+  <header style="border-bottom: 1px solid lightgray;">
+    <div class="row">
+      <div class="col-4 col-md-3">
+        <app-avatar [url]='avatar'></app-avatar>
+      </div>
+      <div class="col-8 col-md-9 text-truncate align-self-center">
+        <span [innerHTML] = "writeUser(userName !== undefined) | toBold"></span>
+      </div>
+    </div>
+    <div class="row">
+      <span [innerHTML]="date | dateToStr | receive" *ngIf="side === 'left'" class="p-2"></span>
+      <span [innerHTML]="date | dateToStr | send" *ngIf="side === 'right'" class="p-2"></span>
+    </div>
+  </header>
+
+  <main class="row">
+    <p [innerHTML]="content | backToBr" class="p-2"></p>
+  </main>
+</div>

@@ -10,5 +10,4 @@ export class BackToBrPipe implements PipeTransform {
     // sinon replace le fait qu'a la premiere instance
     return value.replace(/\n/g, '<br />');
   }
-
 }

@@ -12,9 +12,12 @@ export class ChatService {
     // creer la connexion
     this.socket = io(this.url);
   }
-  sendMessage(chanel: string, message: string) {
-    this.socket.emit(chanel, message);
+  // "emit" means on envoie
+  sendMessage(socketId: any, chanel: string, message: string) {
+    this.socket.emit(chanel, {id: socketId, message});
   }
+
+  // "on" means on recoit
   on(channel: string, event) {
     this.socket.on(channel, event);
   }

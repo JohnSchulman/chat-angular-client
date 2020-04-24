@@ -1,18 +1,22 @@
 <div class="container mt-3">
+<!--on boucle sur le tableau de messages-->
   <div class="row" *ngFor="let message of messages">
-    <app-right-message [avatar]="message.avatar"
-                       [userName]="message.userName"
-                       [firstName]="message.firstName"
-                       [lastName]="message.lastName"
-                       [content]="message.content"
-                       [date]="message.date" ></app-right-message>
+    <!--on fait du binding de toutes les attributs-->
+    <app-message [avatar]="message.avatar"
+                 [userName]="message.userName"
+                 [firstName]="message.firstName"
+                 [lastName]="message.lastName"
+                 [content]="message.content"
+                 [date]="message.date"
+                 [side]="'right'"></app-message>
 
-    <app-left-message [avatar]="message.avatar"
-                      [userName]="message.userName"
-                      [firstName]="message.firstName"
-                      [lastName]="message.lastName"
-                      [content]="message.content"
-                      [date]="message.date" ></app-left-message>
+    <app-message [avatar]="message.avatar"
+                 [userName]="message.userName"
+                 [firstName]="message.firstName"
+                 [lastName]="message.lastName"
+                 [content]="message.content"
+                 [date]="message.date"
+                 [side]="'left'"></app-message>
   </div>
   <div class="row">
     <app-message-form class="col-12 p-0"></app-message-form>
