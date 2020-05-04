@@ -5,20 +5,22 @@ import * as io from 'socket.io-client';
   providedIn: 'root'
 })
 export class ChatService {
+  public static socket = null;
   private url = 'http://localhost:3000';
-  private socket;
 
   constructor() {
     // creer la connexion
-    this.socket = io(this.url);
+    if (ChatService.socket === null) {
+      ChatService.socket = io(this.url);
+    }
   }
   // "emit" means on envoie
-  sendMessage(socketId: any, chanel: string, message: string) {
-    this.socket.emit(chanel, {id: socketId, message});
+  sendMessage(chanel: string, message: string) {
+    ChatService.socket.emit(chanel, message);
   }
 
   // "on" means on recoit
   on(channel: string, event) {
-    this.socket.on(channel, event);
+      ChatService.socket.on(channel, event);
   }
 }

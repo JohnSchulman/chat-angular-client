@@ -6,7 +6,7 @@
       <label for="message">Message ici...</label>
       <textarea class="form-control"
                 id="message" name="message"
-                ngModel #message="ngModel" required></textarea>
+                [formControl]="message" required></textarea>
     </div>
     <div class="row">
       <div class="col-1 offset-11">

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MessageComponent} from '../message/message.component';
 import {PseudoGeneratorService} from '../pseudo-generator.service';
+import {StoreService} from '../store.service';
 
 @Component({
   selector: 'app-smart',
@@ -8,34 +9,17 @@ import {PseudoGeneratorService} from '../pseudo-generator.service';
   styleUrls: ['./smart.component.scss']
 })
 export class SmartComponent implements OnInit {
-  private pseudoGenerator: PseudoGeneratorService;
-
   @Input() appTitle: string;
-  // tu cree un tableau d'un objet en particulier
-  messages: MessageComponent[] = [];
 
-  constructor(pseudoGenerator: PseudoGeneratorService) {
-    this.pseudoGenerator = pseudoGenerator;
-
+  constructor(private pseudoGenerator: PseudoGeneratorService, private storeService: StoreService) {
+    // localStorage permet de stocker des données temporairement sur le web
+    // comme les sessions mais côté Front
     if (localStorage.getItem('userName') === null) {
       localStorage.setItem('userName', this.pseudoGenerator.generate(8));
     }
   }
 
   // cree des données en dure
-  ngOnInit() {
-    const component = new MessageComponent();
-    component.date = new Date();
-    component.avatar = 'assets/avatar.jpg';
-    component.userName = 'totojbwdcihbs<cvdbxwhbcvhsdcswc<sdwcw<c';
-    component.firstName = 'test';
-    component.lastName = 'test2';
-    component.content = `bonjour
-      message de test`;
-    component.side = 'right';
-    // pour ajouter dans un tableau
-    this.messages.push(component);
-    console.log(this.messages.length);
-  }
+  ngOnInit() {}
 
 }

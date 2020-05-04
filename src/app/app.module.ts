@@ -11,7 +11,7 @@ import { DateToStrPipe } from './date-to-str.pipe';
 import { ToBoldPipe } from './to-bold.pipe';
 import { SendPipe } from './send.pipe';
 import { ReceivePipe } from './receive.pipe';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ChatService} from './chat.service';
 import {PseudoGeneratorService} from './pseudo-generator.service';
 import { MessageComponent } from './message/message.component';
@@ -33,7 +33,8 @@ import { MessageComponent } from './message/message.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ChatService,
