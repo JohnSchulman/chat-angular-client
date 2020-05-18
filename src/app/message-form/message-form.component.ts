@@ -25,8 +25,7 @@ export class MessageFormComponent implements OnInit {
       const {message, userName} = JSON.parse(json);
       console.log('discussion', userName, message);
     });
-    // broadcasr recoit le message à tous
-
+    // broadcast recoit le message à tous
     // reception du message
     this.chatService.on('broadcast', json => {
       // je transform  mon string json une seul objet grace a parse(jsopn)

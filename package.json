@@ -11,6 +11,10 @@
   },
   "private": true,
   "dependencies": {
+    "dust": "^0.3.0",
+    "express": "~4.16.1",
+    "express-dustjs": "^1.1.1",
+    "express-session": "^1.17.0",
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",

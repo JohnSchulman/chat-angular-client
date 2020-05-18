@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MessageComponent} from '../message/message.component';
 import {PseudoGeneratorService} from '../pseudo-generator.service';
 import {StoreService} from '../store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-smart',
@@ -11,7 +12,7 @@ import {StoreService} from '../store.service';
 export class SmartComponent implements OnInit {
   @Input() appTitle: string;
 
-  constructor(private pseudoGenerator: PseudoGeneratorService, private storeService: StoreService) {
+  constructor(private pseudoGenerator: PseudoGeneratorService, private storeService: StoreService, private router: Router) {
     // localStorage permet de stocker des données temporairement sur le web
     // comme les sessions mais côté Front
     if (localStorage.getItem('userName') === null) {
@@ -20,6 +21,10 @@ export class SmartComponent implements OnInit {
   }
 
   // cree des données en dure
-  ngOnInit() {}
+  ngOnInit() {
+    if (!localStorage.getItem('user')){
+      this.router.navigate(['/login']);
+    }
+  }
 
 }
