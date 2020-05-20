@@ -19,14 +19,11 @@ export class MessageFormComponent implements OnInit {
   ngOnInit() {
     // on appelle du chatService la fonction "on"  avec les paramètres
     // il recoit le message
-    // transform string json en objet json
-    // puis chaque variable contient l'objet
-    this.chatService.on('discussion', json => {
-      const {message, userName} = JSON.parse(json);
-      console.log('discussion', userName, message);
-    });
+
     // broadcast recoit le message à tous
     // reception du message
+
+    // je gere le message de quelqu'un d'autre d'ou le broadcast
     this.chatService.on('broadcast', json => {
       // je transform  mon string json une seul objet grace a parse(jsopn)
       // puis je recupere mes deux string dans la variable message et username
@@ -64,10 +61,16 @@ export class MessageFormComponent implements OnInit {
 
     // l'envoie sur les sockets
     // permet aux autres de savoir si on à envoyer une message
+
+    // tu recupère les infos de mon user connecté
+    let user = JSON.parse(localStorage.getItem('user'));
     this.chatService.sendMessage(
       'discussion',
       JSON.stringify({
-        userName: localStorage.getItem('userName'),
+        // je recupere deux champs specifiques
+        userId: user.id,
+        userName: user.first_name + ' ' + user.last_name,
+        // pour le formControl
         message: this.message.value
       })
     );
@@ -80,9 +83,9 @@ export class MessageFormComponent implements OnInit {
       content: this.message.value,
       date: new Date(),
       // tu recupère le userName grâce à localStorage
-      firstName: localStorage.getItem('userName'),
-      lastName: localStorage.getItem('userName'),
-      userName: localStorage.getItem('userName')
+      firstName: user.first_name,
+      lastName: user.last_name,
+      userName: user.first_name + ' ' + user.last_name
     });
 
     this.message.reset();

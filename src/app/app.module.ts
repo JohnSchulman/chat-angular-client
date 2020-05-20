@@ -14,7 +14,6 @@ import { ReceivePipe } from './receive.pipe';
 // @ts-ignore
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ChatService} from './chat.service';
-import {PseudoGeneratorService} from './pseudo-generator.service';
 import { MessageComponent } from './message/message.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -44,8 +43,7 @@ import { MenuComponent } from './menu/menu.component';
     ReactiveFormsModule
   ],
   providers: [
-    ChatService,
-    PseudoGeneratorService
+    ChatService
   ],
   bootstrap: [AppComponent]
 })
