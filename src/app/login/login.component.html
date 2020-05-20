@@ -1,0 +1,36 @@
+<app-menu [logged]="false"></app-menu>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Login</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger message d-none" role="alert"></div>
+    </div>
+  </div>
+  <div class="row">
+    <form class="col-12" action="/api/user/login" method="get" id="login-form">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   [formControl]="email">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" aria-describedby="emailHelp"
+                   [formControl]="password">
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" (click)="onClick($event)">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="assets/messenger.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    ChatID
+  </a>
+  <div *ngIf="!logged">
+    <a [routerLink]="['/login']" class="mr-2"> Se connecter</a>
+    <a [routerLink]="['/register']">S'inscrire</a>
+  </div>
+  <div *ngIf="logged">
+    <a href="#" (click)="disconnect($event)">Se déconnecter</a>
+  </div>
+</nav>
