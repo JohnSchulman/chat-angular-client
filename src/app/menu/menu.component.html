@@ -7,6 +7,7 @@
     <a [routerLink]="['/login']" class="mr-2"> Se connecter</a>
     <a [routerLink]="['/register']">S'inscrire</a>
   </div>
+  <!--on passe par un évènement car on veux just recharger une partie de la page-->
   <div *ngIf="logged">
     <a href="#" (click)="disconnect($event)">Se déconnecter</a>
   </div>

@@ -14,12 +14,12 @@ export class ChatService {
       ChatService.socket = io(this.url);
     }
   }
-  // "emit" means on envoie
+  // "emit" = envoie
   sendMessage(chanel: string, message: string) {
     ChatService.socket.emit(chanel, message);
   }
 
-  // "on" means on recoit
+  // "on" = recoit
   on(channel: string, event) {
       ChatService.socket.on(channel, event);
   }

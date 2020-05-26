@@ -14,7 +14,6 @@ export class SmartComponent implements OnInit {
 
   }
 
-  // cree des données en dure
   ngOnInit() {
     if (!localStorage.getItem('user')){
       this.router.navigate(['/login']);

@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
+  // je catch la valeur
   @Input() logged: boolean;
 
   constructor(private router: Router) {}
@@ -15,7 +16,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {}
 
   disconnect($event) {
-    // ca stop l'evement
+    // ca stop l'evement pour ne pas changer de page
     $event.preventDefault();
     // on supprime la clé et donc l'objet de l'utimsateur aussi
     localStorage.removeItem('user');

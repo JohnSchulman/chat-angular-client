@@ -17,15 +17,10 @@ export class MessageFormComponent implements OnInit {
   constructor(private chatService: ChatService, private storeService: StoreService) {}
 
   ngOnInit() {
-    // on appelle du chatService la fonction "on"  avec les paramètres
-    // il recoit le message
-
     // broadcast recoit le message à tous
-    // reception du message
-
-    // je gere le message de quelqu'un d'autre d'ou le broadcast
+    // je gere la reception d'unmessage de quelqu'un d'autre d'ou le broadcast
     this.chatService.on('broadcast', json => {
-      // je transform  mon string json une seul objet grace a parse(jsopn)
+      // je transform  mon string json en une seul objet grace a parse(json)
       // puis je recupere mes deux string dans la variable message et username
       // pour pouvoir le traiter après
       const {message, userName} = JSON.parse(json);
@@ -52,22 +47,18 @@ export class MessageFormComponent implements OnInit {
       this.storeService.addMessage(tmpMessage);
     });
   }
+
+  // l'envoi le message
   submitForm(event, f: NgForm) {
     // intercept l'evenement
     event.preventDefault();
-
-    // on appelle du chatService la fonction sendMessage  avec les paramètres
-    // il envoi le message
-
-    // l'envoie sur les sockets
-    // permet aux autres de savoir si on à envoyer une message
-
     // tu recupère les infos de mon user connecté
+    // permet aux autres de savoir si on à envoyer une message
     let user = JSON.parse(localStorage.getItem('user'));
+    // on appelle du chatService la fonction sendMessage  avec les paramètres de l'user
     this.chatService.sendMessage(
       'discussion',
       JSON.stringify({
-        // je recupere deux champs specifiques
         userId: user.id,
         userName: user.first_name + ' ' + user.last_name,
         // pour le formControl
@@ -75,7 +66,7 @@ export class MessageFormComponent implements OnInit {
       })
     );
 
-    // l'envoie
+    // l'ajout
     // rempli ton tableau avec les bons elements
     this.storeService.addMessage({
       side: 'right',
