@@ -2,6 +2,7 @@ import {Component, OnInit, Output} from '@angular/core';
 import {FormControl, NgForm} from '@angular/forms';
 import {ChatService} from '../chat.service';
 import {StoreService} from '../store.service';
+import {async} from 'q';
 
 @Component({
   selector: 'app-message-form',
@@ -80,6 +81,22 @@ export class MessageFormComponent implements OnInit {
     });
 
     this.message.reset();
-  }
 
+    // recupérer la listes des messages
+     this.chatService.on('connexion', json => {
+      //const db = require('../models');
+      //let discussions = await db.Discussion.findAll();
+      //let messages = JSON.parse(localStorage.getItem('message'));
+      const {messages} = JSON.parse(json);
+      if(messages.length > 0) {
+        for(let message of messages) {
+          const author =  message.Author;
+          if (author.id === this.id){
+            this.storeService.addMessage(message);
+          }
+        }
+      }
+
+  });
+}
 }
