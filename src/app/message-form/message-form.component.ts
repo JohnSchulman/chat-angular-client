@@ -2,7 +2,6 @@ import {Component, OnInit, Output} from '@angular/core';
 import {FormControl, NgForm} from '@angular/forms';
 import {ChatService} from '../chat.service';
 import {StoreService} from '../store.service';
-import {async} from 'q';
 
 @Component({
   selector: 'app-message-form',
@@ -12,6 +11,7 @@ import {async} from 'q';
 export class MessageFormComponent implements OnInit {
   @Output() method = 'post';
   @Output() action = '/api/message';
+  userWriteMessage = '';
 
   message: FormControl = new FormControl('');
 
@@ -21,48 +21,61 @@ export class MessageFormComponent implements OnInit {
     // broadcast recoit le message à tous
     // je gere la reception d'unmessage de quelqu'un d'autre d'ou le broadcast
     this.chatService.on('broadcast', json => {
-      // je transform  mon string json en une seul objet grace a parse(json)
-      // puis je recupere mes deux string dans la variable message et username
-      // pour pouvoir le traiter après
       const {message, userName} = JSON.parse(json);
       const tmpMessage = {
-        side: 'right',
+        side: 'left',
         avatar: 'assets/avatar.jpg',
         content: message,
         date: new Date(),
         // tu recupère le userName grâce à localStorage
-        firstName: localStorage.getItem('userName'),
-        lastName: localStorage.getItem('userName'),
-        userName: localStorage.getItem('userName')
+        firstName: userName.split(' ')[0],
+        lastName: userName.split(' ')[1],
+        userName: userName
       };
-
-      // si le username est un pseudo different je bascule sur l'autre message form
-      if (userName !== localStorage.getItem('userName')) {
-        tmpMessage.side = 'left';
-        tmpMessage.lastName = userName;
-        tmpMessage.firstName = userName;
-        tmpMessage.userName = userName;
-
-        console.log('broadcast', userName, message);
-      }
       this.storeService.addMessage(tmpMessage);
+    });
+
+    this.chatService.on('messages', json => {
+      // this.storeService.messages = JSON.parse(json);
+      let user = JSON.parse(localStorage.getItem('user'));
+
+      let tmpMessages = [];
+      for(let m of JSON.parse(json)) {
+        // formatte un nouvelles objet avec le commposaant messages
+        tmpMessages.push({
+          avatar: 'assets/avatar.jpg',
+          userName: m.author.first_name + ' ' + m.author.last_name,
+          firstName: m.author.first_name,
+          lastName: m.author.last_name,
+          content: m.text,
+          date: new Date(m.createdAt),
+          side: user.id === m.author.id ? 'right' : 'left'
+        });
+      }
+      // tu set la proriété messages du store avec la nouvelles proprété
+      // de base StoreService.Messages est vide donc on la remplie une seul foisF
+      this.storeService.messages = tmpMessages;
+    });
+
+    this.chatService.on('IWrite', userWrite => {
+      let {userName} = JSON.parse(userWrite);
+      this.userWriteMessage = `L'utilisateur ${userName} est en train d'écrire ...`;
+    });
+
+    this.chatService.on('IDontWrite', () => {
+      this.userWriteMessage = '';
     });
   }
 
   // l'envoi le message
   submitForm(event, f: NgForm) {
-    // intercept l'evenement
     event.preventDefault();
-    // tu recupère les infos de mon user connecté
-    // permet aux autres de savoir si on à envoyer une message
     let user = JSON.parse(localStorage.getItem('user'));
-    // on appelle du chatService la fonction sendMessage  avec les paramètres de l'user
     this.chatService.sendMessage(
       'discussion',
       JSON.stringify({
         userId: user.id,
         userName: user.first_name + ' ' + user.last_name,
-        // pour le formControl
         message: this.message.value
       })
     );
@@ -83,20 +96,35 @@ export class MessageFormComponent implements OnInit {
     this.message.reset();
 
     // recupérer la listes des messages
-     this.chatService.on('connexion', json => {
-      //const db = require('../models');
-      //let discussions = await db.Discussion.findAll();
-      //let messages = JSON.parse(localStorage.getItem('message'));
-      const {messages} = JSON.parse(json);
-      if(messages.length > 0) {
-        for(let message of messages) {
-          const author =  message.Author;
-          if (author.id === this.id){
-            this.storeService.addMessage(message);
-          }
-        }
-      }
+  //    this.chatService.on('connexion', json => {
+  //     //const db = require('../models');
+  //     //let discussions = await db.Discussion.findAll();
+  //     //let messages = JSON.parse(localStorage.getItem('message'));
+  //     const {messages} = JSON.parse(json);
+  //     if(messages.length > 0) {
+  //       for(let message of messages) {
+  //         const author =  message.Author;
+  //         if (author.id === this.id){
+  //           this.storeService.addMessage(message);
+  //         }
+  //       }
+  //     }
+  //
+  // });
+  }
 
-  });
-}
+  IWrite(event: Event) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (this.message.value.length >= 2) {
+      this.chatService.sendMessage('IWrite', JSON.stringify({
+        userId: user.id,
+        userName: user.first_name + ' ' + user.last_name
+      }));
+    } else {
+      this.chatService.sendMessage('IDontWrite', JSON.stringify({
+        userId: user.id,
+        userName: user.first_name + ' ' + user.last_name
+      }))
+    }
+  }
 }

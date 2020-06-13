@@ -3,9 +3,11 @@
         [method]="method" [action]="action"
         (ngSubmit)="submitForm($event, f)">
     <div class="form-group">
+      <div><i>{{userWriteMessage}}</i></div>
       <label for="message">Message ici...</label>
       <textarea class="form-control"
                 id="message" name="message"
+                (keyup)="IWrite($event)"
                 [formControl]="message" required></textarea>
     </div>
     <div class="row">

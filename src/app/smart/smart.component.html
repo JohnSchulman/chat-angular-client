@@ -8,7 +8,7 @@
       </div>
     </div>
   </div>
-
+<!-- storeService contient un listenner automatique qui detecte le changement du proriété-->
   <div class="row" *ngFor="let message of storeService.messages">
       <app-message [avatar]="message.avatar"
                    [userName]="message.userName"

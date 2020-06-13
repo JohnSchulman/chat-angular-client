@@ -10,10 +10,16 @@ export class MenuComponent implements OnInit {
 
   // je catch la valeur
   @Input() logged: boolean;
+  connectedUser = '';
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (localStorage.getItem('user')) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      this.connectedUser = user.first_name + ' ' + user.last_name;
+    }
+  }
 
   disconnect($event) {
     // ca stop l'evement pour ne pas changer de page

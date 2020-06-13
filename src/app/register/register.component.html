@@ -23,7 +23,14 @@
         <label for="password">Mot de Passe</label>
         <input type="password" class="form-control" name="password" id="password" aria-describedby="password" [formControl]="password"/>
       </div>
-      <button type="submit" class="btn btn-primary" (click)="onClick($event)">Submit</button>
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage !== ''">
+          {{errorMessage}}
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" (click)="onClick($event)">Submit</button>
+      </div>
     </form>
   </div>
 </div>

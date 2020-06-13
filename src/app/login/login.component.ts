@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   email: FormControl = new FormControl('');
   password: FormControl = new FormControl('');
 
+  errorMessage = '';
+
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -36,9 +38,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(json.user));
           this.router.navigate(['/']);
         } else  {
-          alert(json.message);
+          this.errorMessage = json.message;
         }
-        console.log(json);
       })
   }
 }

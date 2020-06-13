@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   last_name: FormControl = new FormControl('');
   email: FormControl = new FormControl('');
   password: FormControl = new FormControl('');
+  errorMessage = '';
 
   constructor(private router: Router) { }
 
@@ -35,7 +36,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         }
         else{
-          alert(json.message);
+          this.errorMessage = json.message;
         }
         console.log(json);
       })

@@ -9,6 +9,7 @@
   </div>
   <!--on passe par un évènement car on veux just recharger une partie de la page-->
   <div *ngIf="logged">
+    <span class="mr-2">{{connectedUser}}</span>
     <a href="#" (click)="disconnect($event)">Se déconnecter</a>
   </div>
 </nav>
