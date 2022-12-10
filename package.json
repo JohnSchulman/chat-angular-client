@@ -12,7 +12,7 @@
   "private": true,
   "dependencies": {
     "dust": "^0.3.0",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "express-dustjs": "^1.1.1",
     "express-session": "^1.17.0",
     "@angular/animations": "~8.2.14",
